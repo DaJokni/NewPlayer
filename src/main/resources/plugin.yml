@@ -1,0 +1,6 @@
+name: NewPlayer
+version: ${project.version}
+main: fi.jokni.newplayer.NewPlayer
+api-version: 1.15
+authors: [Jokni]
+description: Don't ya hate it when a new player joins to your server and leaves because you didnt notice them.

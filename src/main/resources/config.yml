@@ -1,0 +1,14 @@
+#----------------------------------------------------------------
+#
+#                  NewPlayer | 1.0
+#                   Made by Jokni
+
+
+#Sound, you can find the supported sounds here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+sound: BLOCK_ANVIL_USE
+
+#
+#Message, & is supported.
+#
+message: §fA new player has joined your server, welcome them!
+#----------------------------------------------------------------
