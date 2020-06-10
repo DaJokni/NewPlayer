@@ -5,10 +5,12 @@
 
 
 #Sound, you can find the supported sounds here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+#Please note that these are sounds for 1.15, and some sounds listed don't work on other versions.
+#You'll most usually find the right lists by searching "*version* sound list spigot" or something similar.
 sound: BLOCK_ANVIL_USE
 
 #
-#Message, & is supported.
+#Messages, & is supported.
 #
-message: §fA new player has joined your server, welcome them!
+notify-join: §fA new player has joined your server, welcome them!
 #----------------------------------------------------------------

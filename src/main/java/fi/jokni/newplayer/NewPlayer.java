@@ -32,9 +32,11 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         String message = this.getConfig().getString("message");
         Player p = e.getPlayer();
         for (Player p2 : Bukkit.getOnlinePlayers()) {
-            if (p2.hasPermission("newplayer.notify")) {
-                p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
-                p2.sendMessage(message);
+            if (!p.hasPlayedBefore()) {
+                if (p2.hasPermission("newplayer.notify")) {
+                    p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
+                    p2.sendMessage(message);
+                }
             }
         }
     }
