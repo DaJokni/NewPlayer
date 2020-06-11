@@ -9,8 +9,17 @@
 #You'll most usually find the right lists by searching "*version* sound list spigot" or something similar.
 sound: BLOCK_ANVIL_USE
 
+#Choose if you want the plugin to play your computer's/server's internal pc beeper.
+#On Windows 10, it plays the default chime if you don't have a beeper.
+pc-beeper: false
+
 #
 #Messages, & is supported.
 #
 notify-join: §fA new player has joined your server, welcome them!
+
+#
+#Settings
+#
+every-join: false
 #----------------------------------------------------------------
