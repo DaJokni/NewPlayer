@@ -1,6 +1,6 @@
-#----------------------------------------------------------------
 #
-#                  NewPlayer | 1.0
+#
+#                  NewPlayer | 1.3
 #                   Made by Jokni
 
 
@@ -10,16 +10,18 @@
 sound: BLOCK_ANVIL_USE
 
 #Choose if you want the plugin to play your computer's/server's internal pc beeper.
-#On Windows 10, it plays the default chime if you don't have a beeper.
 pc-beeper: false
 
 #
 #Messages, & is supported.
 #
+
+#Message that's sent when someone joins.
 notify-join: §fA new player has joined your server, welcome them!
 
 #
 #Settings
 #
+
+#Send a notification on every player join.
 every-join: false
-#----------------------------------------------------------------
