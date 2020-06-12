@@ -32,9 +32,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.getConfig();
         this.saveDefaultConfig();
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> System.out.println(ChatColor.GREEN + "-------[NewPlayer]------"), 600);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> System.out.println(ChatColor.GREEN + "Please rate the plugin!"), 601);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> System.out.println(ChatColor.GREEN + "------------------------"), 602);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> System.out.println(ChatColor.GREEN + "-------[NewPlayer]------\nPlease rate the plugin!\n------------------------"), 600);
 
     }
 
@@ -49,7 +47,6 @@ public final class NewPlayer extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
-        Bukkit.getOnlinePlayers().stream().toArray(Player[]::new);
         for (Player p2 : Bukkit.getOnlinePlayers()) {
             if (p2.hasPermission("newplayer.notify")) {
                 if (!toggle.isEmpty()) {
@@ -96,7 +93,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
             if (args.length == 1) {
                 String s = args[0];
                 Player p = (Player) sender;
-                switch (s) {
+                switch (s.toLowerCase()) {
                     case "reload":
                         if (sender.hasPermission("newplayer.reload")) {
                             sender.sendMessage(reloadmsg);
