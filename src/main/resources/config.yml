@@ -4,14 +4,6 @@
 #                   Made by Jokni
 
 
-#Sound, you can find the supported sounds here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
-#Please note that these are sounds for 1.15, and some sounds listed don't work on other versions.
-#You'll most usually find the right lists by searching "*version* sound list spigot" or something similar.
-sound: BLOCK_ANVIL_USE
-
-#Choose if you want the plugin to play your computer's/server's internal pc beeper.
-pc-beeper: false
-
 #
 #Messages, & is supported.
 #
@@ -19,9 +11,27 @@ pc-beeper: false
 #Message that's sent when someone joins.
 notify-join: §fA new player has joined your server, welcome them!
 
+#Sent when you reload the config.
+reload-message: §aConfiguration reloaded successfully!
+
+#Sent when you have no permission to a command.
+no-permission: §cYou don't have the required permissions to this command!
+
+#These two are sent when you toggle between on and off.
+notify-enable: §aYou enabled notifications on join!
+notify-disable: §cYou disabled notifications on join!
+
 #
 #Settings
 #
 
 #Send a notification on every player join.
 every-join: false
+
+#Choose if you want the plugin to play your computer's/server's internal pc beeper.
+pc-beeper: false
+
+#Sound, you can find the supported sounds here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+#Please note that these are sounds for 1.15, and some sounds listed don't work on other versions.
+#You'll most usually find the right lists by searching "*version* sound list spigot" or something similar.
+sound: BLOCK_ANVIL_USE
