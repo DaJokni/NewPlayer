@@ -1,11 +1,13 @@
 #
 #
-#                  NewPlayer | 1.3
+#                  NewPlayer | 1.8.1
 #                   Made by Jokni
 
 
+#PLACEHOLDERS: %player%
+
 #
-#Messages, & is supported.
+#Messages
 #
 
 #Message that's sent when someone joins.
@@ -21,6 +23,13 @@ no-permission: §cYou don't have the required permissions to this command!
 notify-enable: §aYou enabled notifications on join!
 notify-disable: §cYou disabled notifications on join!
 
+#Title messages
+title: §a§lNewPlayer
+subtitle: §fA new player has joined your server!
+
+#Actionbar messages
+actionbar-message: §fA new player has joined your server, welcome them!
+
 #
 #Settings
 #
@@ -30,6 +39,12 @@ every-join: false
 
 #Choose if you want the plugin to play your computer's/server's internal pc beeper.
 pc-beeper: false
+
+#Show a title when someone joins. You can modify the title in "Title messages" section
+notify-join-title: false
+
+#Show a actionbar when someone joins. You can modify the title in "Actionbar messages" section
+notify-join-actionbar: false
 
 #Sound, you can find the supported sounds here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 #Please note that these are sounds for 1.15, and some sounds listed don't work on other versions.

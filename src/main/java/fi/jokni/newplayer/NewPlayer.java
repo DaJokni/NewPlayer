@@ -1,5 +1,7 @@
 package fi.jokni.newplayer;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -21,10 +23,11 @@ public final class NewPlayer extends JavaPlugin implements Listener {
     String disable = this.getConfig().getString("notify-disable");
     String reloadmsg = this.getConfig().getString("reload-message");
     String sound = this.getConfig().getString("sound");
-    String message = this.getConfig().getString("notify-join");
     String noperm = this.getConfig().getString("no-permission");
     boolean beeper = this.getConfig().getBoolean("pc-beeper");
     boolean everyjoin = this.getConfig().getBoolean("every-join");
+    boolean actionbarboolean = this.getConfig().getBoolean("notify-join-actionbar");
+    boolean titleboolean = this.getConfig().getBoolean("notify-join-title");
 
     @Override
     public void onEnable() {
@@ -32,7 +35,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.getConfig();
         this.saveDefaultConfig();
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> System.out.println(ChatColor.GREEN + "-------[NewPlayer]------\nPlease rate the plugin!\n------------------------"), 600);
+        Bukkit.getScheduler().runTaskLater(this, () -> System.out.println(ChatColor.GREEN + "-------[NewPlayer]------\nPlease rate the plugin!\n------------------------"), 600);
 
     }
 
@@ -50,14 +53,25 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         for (Player p2 : Bukkit.getOnlinePlayers()) {
             if (p2.hasPermission("newplayer.notify")) {
                 if (!toggle.isEmpty()) {
+                    String message = this.getConfig().getString("notify-join").replace("%player%", p.getName());
+                    String actionbarmsg = this.getConfig().getString("actionbar-message").replace("%player%", p.getName());
+                    String titlemsg = this.getConfig().getString("title").replace("%player%", p.getName());
+                    String subtitlemsg = this.getConfig().getString("subtitle").replace("%player%", p.getName());
                     if (beeper) {
                         if (!p.hasPlayedBefore()) {
+
                             if (cooldown.isEmpty()) {
                                 cooldown.put(p.getUniqueId(), System.currentTimeMillis());
                                 p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
                                 p2.sendMessage(message);
                                 Toolkit.getDefaultToolkit().beep();
-                                Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> cooldown.clear(), 40);
+                                if (titleboolean) {
+                                    p2.sendTitle((titlemsg), (subtitlemsg), 1, 20, 1);
+                                }
+                                if (actionbarboolean) {
+                                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
+                                }
+                                Bukkit.getScheduler().runTaskLater(this, () -> cooldown.clear(), 40);
                             } else {
                                 return;
                             }
@@ -66,6 +80,12 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                                 p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
                                 p2.sendMessage(message);
                                 Toolkit.getDefaultToolkit().beep();
+                                if (titleboolean) {
+                                    p2.sendTitle((titlemsg), (subtitlemsg), 1, 20, 1);
+                                }
+                                if (actionbarboolean) {
+                                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
+                                }
                             }
                             return;
                         }
@@ -73,10 +93,22 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                         if (everyjoin) {
                             p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
                             p2.sendMessage(message);
+                            if (titleboolean) {
+                                p2.sendTitle((titlemsg), (subtitlemsg), 1, 20, 1);
+                            }
+                            if (actionbarboolean) {
+                                p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
+                            }
                         } else {
                             if (!p.hasPlayedBefore()) {
                                 p2.playSound(p2.getLocation(), Sound.valueOf(sound), 2F, 1F);
                                 p2.sendMessage(message);
+                                if (titleboolean) {
+                                    p2.sendTitle((titlemsg), (subtitlemsg), 1, 20, 1);
+                                }
+                                if (actionbarboolean) {
+                                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
+                                }
                             }
                         }
                     }
@@ -124,7 +156,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                             sender.sendMessage("§a§lNewPlayer §8> §fUnknown argument! Please do §e/newplayer §ffor the correct arguments.");
                             break;
                         } else {
-                            sender.sendMessage("§a§lNewPlayer §8| §f1.5");
+                            sender.sendMessage("§a§lNewPlayer §8| §f1.8.1");
                             sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                             sender.sendMessage("§fMade by Jokni");
                             sender.sendMessage("§fMade with love and care.");
@@ -137,7 +169,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                 sender.sendMessage("§f/newplayer toggle §8- §7Toggle notifications on and off.");
                 sender.sendMessage("§f/newplayer reload §8- §7Reload the config.");
             } else {
-                sender.sendMessage("§a§lNewPlayer §8| §f1.5");
+                sender.sendMessage("§a§lNewPlayer §8| §f1.8.1");
                 sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                 sender.sendMessage("§fMade by Jokni");
                 sender.sendMessage("§fMade with love and care.");
