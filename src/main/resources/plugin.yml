@@ -1,7 +1,7 @@
 name: NewPlayer
 version: ${project.version}
 main: fi.jokni.newplayer.NewPlayer
-api-version: 1.15
+api-version: 1.16
 authors: [Jokni]
 description: Don't ya hate it when a new player joins to your server and leaves because you didnt notice them.
 website: https://www.spigotmc.org/resources/newplayer.80011/

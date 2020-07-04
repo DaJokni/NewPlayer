@@ -52,7 +52,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
 
         for (Player p2 : Bukkit.getOnlinePlayers()) {
             if (p2.hasPermission("newplayer.notify")) {
-                if (!toggle.isEmpty()) {
+                if (!(toggle.get(p2) == null)) {
                     String message = this.getConfig().getString("notify-join").replace("%player%", p.getName());
                     String actionbarmsg = this.getConfig().getString("actionbar-message").replace("%player%", p.getName());
                     String titlemsg = this.getConfig().getString("title").replace("%player%", p.getName());
@@ -138,7 +138,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                     case "toggle":
                         if (sender.hasPermission("newplayer.toggle")) {
                             if (toggle.isEmpty()) {
-                                toggle.put(p, true);
+                                toggle.put((Player) sender, true);
                                 p.sendMessage(enable);
                                 break;
 
@@ -156,7 +156,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                             sender.sendMessage("§a§lNewPlayer §8> §fUnknown argument! Please do §e/newplayer §ffor the correct arguments.");
                             break;
                         } else {
-                            sender.sendMessage("§a§lNewPlayer §8| §f1.8.1");
+                            sender.sendMessage("§a§lNewPlayer §8| §f1.9");
                             sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                             sender.sendMessage("§fMade by Jokni");
                             sender.sendMessage("§fMade with love and care.");
@@ -169,7 +169,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                 sender.sendMessage("§f/newplayer toggle §8- §7Toggle notifications on and off.");
                 sender.sendMessage("§f/newplayer reload §8- §7Reload the config.");
             } else {
-                sender.sendMessage("§a§lNewPlayer §8| §f1.8.1");
+                sender.sendMessage("§a§lNewPlayer §8| §f1.9");
                 sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                 sender.sendMessage("§fMade by Jokni");
                 sender.sendMessage("§fMade with love and care.");
