@@ -1,6 +1,6 @@
 #
 #
-#                  NewPlayer | 1.9
+#                  NewPlayer | 1.9.2
 #                   Made by Jokni
 
 
@@ -36,6 +36,10 @@ actionbar-message: §fA new player has joined your server, welcome them!
 
 #Send a notification on every player join.
 every-join: false
+
+#Cooldown between mentions (in ticks)
+#20 = 1 second
+cooldown: 40
 
 #Choose if you want the plugin to play your computer's/server's internal pc beeper.
 pc-beeper: false

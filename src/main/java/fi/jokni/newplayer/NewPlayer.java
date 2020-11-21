@@ -15,10 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class NewPlayer extends JavaPlugin implements Listener {
-    public static HashMap<Player, Boolean> toggle = new HashMap<Player, Boolean>();
+    public static HashMap<Player, Boolean> toggle = new HashMap<>();
+    Integer cooldownconfig = this.getConfig().getInt("cooldown");
     String enable = this.getConfig().getString("notify-enable");
     String disable = this.getConfig().getString("notify-disable");
     String reloadmsg = this.getConfig().getString("reload-message");
@@ -35,7 +37,6 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         this.getConfig();
         this.saveDefaultConfig();
-        Bukkit.getScheduler().runTaskLater(this, () -> System.out.println(ChatColor.GREEN + "-------[NewPlayer]------\nPlease rate the plugin!\n------------------------"), 600);
 
     }
 
@@ -44,19 +45,20 @@ public final class NewPlayer extends JavaPlugin implements Listener {
         System.out.println(ChatColor.RED + "[NewPlayer] Unloading NewPlayer...");
     }
 
-    private HashMap<UUID, Long> cooldown = new HashMap();
+    private HashMap<UUID, Long> cooldown = new HashMap<>();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+
         Player p = e.getPlayer();
 
         for (Player p2 : Bukkit.getOnlinePlayers()) {
             if (p2.hasPermission("newplayer.notify")) {
                 if (!(toggle.get(p2) == null)) {
-                    String message = this.getConfig().getString("notify-join").replace("%player%", p.getName());
-                    String actionbarmsg = this.getConfig().getString("actionbar-message").replace("%player%", p.getName());
-                    String titlemsg = this.getConfig().getString("title").replace("%player%", p.getName());
-                    String subtitlemsg = this.getConfig().getString("subtitle").replace("%player%", p.getName());
+                    String message = Objects.requireNonNull(this.getConfig().getString("notify-join")).replace("%player%", p.getName());
+                    String actionbarmsg = Objects.requireNonNull(this.getConfig().getString("actionbar-message")).replace("%player%", p.getName());
+                    String titlemsg = Objects.requireNonNull(this.getConfig().getString("title")).replace("%player%", p.getName());
+                    String subtitlemsg = Objects.requireNonNull(this.getConfig().getString("subtitle")).replace("%player%", p.getName());
                     if (beeper) {
                         if (!p.hasPlayedBefore()) {
 
@@ -71,7 +73,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                                 if (actionbarboolean) {
                                     p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
                                 }
-                                Bukkit.getScheduler().runTaskLater(this, () -> cooldown.clear(), 40);
+                                Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> cooldown.clear(), cooldownconfig);
                             } else {
                                 return;
                             }
@@ -130,38 +132,34 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                         if (sender.hasPermission("newplayer.reload")) {
                             sender.sendMessage(reloadmsg);
                             this.reloadConfig();
-                            break;
                         } else {
                             sender.sendMessage(noperm);
-                            break;
                         }
+                        break;
                     case "toggle":
                         if (sender.hasPermission("newplayer.toggle")) {
                             if (toggle.isEmpty()) {
                                 toggle.put((Player) sender, true);
                                 p.sendMessage(enable);
-                                break;
 
                             } else {
                                 toggle.clear();
                                 p.sendMessage(disable);
-                                break;
                             }
                         } else {
                             sender.sendMessage(noperm);
-                            break;
                         }
+                        break;
                     default:
                         if (sender.hasPermission("newplayer.help")) {
                             sender.sendMessage("§a§lNewPlayer §8> §fUnknown argument! Please do §e/newplayer §ffor the correct arguments.");
-                            break;
                         } else {
-                            sender.sendMessage("§a§lNewPlayer §8| §f1.9");
+                            sender.sendMessage("§a§lNewPlayer §8| §f1.9.2");
                             sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                             sender.sendMessage("§fMade by Jokni");
                             sender.sendMessage("§fMade with love and care.");
-                            break;
                         }
+                        break;
                 }
             } else if (sender.hasPermission("newplayer.help")) {
                 sender.sendMessage("§a§lNewPlayer");
@@ -169,7 +167,7 @@ public final class NewPlayer extends JavaPlugin implements Listener {
                 sender.sendMessage("§f/newplayer toggle §8- §7Toggle notifications on and off.");
                 sender.sendMessage("§f/newplayer reload §8- §7Reload the config.");
             } else {
-                sender.sendMessage("§a§lNewPlayer §8| §f1.9");
+                sender.sendMessage("§a§lNewPlayer §8| §f1.9.2");
                 sender.sendMessage("§fDownload for youself in SpigotMC: §ehttps://www.spigotmc.org/resources/newplayer.80011/");
                 sender.sendMessage("§fMade by Jokni");
                 sender.sendMessage("§fMade with love and care.");

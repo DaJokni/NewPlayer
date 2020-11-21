@@ -7,3 +7,4 @@ description: Don't ya hate it when a new player joins to your server and leaves 
 website: https://www.spigotmc.org/resources/newplayer.80011/
 commands:
   newplayer:
+    description: Main command for NewPlayer
