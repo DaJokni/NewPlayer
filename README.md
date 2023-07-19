@@ -1,2 +1,2 @@
 # NewPlayer
-Source code... anythin else to say?
+really old project of mine, will not be maintained
